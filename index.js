@@ -81,7 +81,12 @@ exports.plugin = function (schema, options) {
         });
       }
       else {
-        ready = true;
+        IdentityCounter.findOneAndUpdate(
+          { model: settings.model, field: settings.field },
+          { count: settings.startAt - settings.incrementBy },
+          function(){
+            ready = true;
+          })
       }
     }
   );
